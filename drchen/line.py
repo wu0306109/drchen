@@ -5,6 +5,8 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
+from . import openai_client
+
 CHANNEL_ACCESS_TOKEN = os.environ.get('CHANNEL_ACCESS_TOKEN')
 CHANNEL_SECRET = os.environ.get('CHANNEL_SECRET')
 
@@ -37,7 +39,8 @@ def callback() -> Response:
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event) -> None:
+    response = openai_client.request(event.message.text)
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text),
+        TextSendMessage(text=response),
     )
