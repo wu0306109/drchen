@@ -2,6 +2,8 @@ import os
 
 from flask import Flask
 
+from .line import line
+
 
 def create_app(test_config=None) -> Flask:
     # create and configure the app
@@ -10,6 +12,8 @@ def create_app(test_config=None) -> Flask:
         #SECRET_KEY='dev',
         #DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
     )
+
+    app.register_blueprint(line)
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
