@@ -17,4 +17,5 @@ def request(prompt: str) -> str:
         frequency_penalty=0,
         presence_penalty=0,
     )
-    return response.choices[0].text
+    str.removeprefix('/n/n')
+    return response.choices[0].text.removeprefix('\n\n')
