@@ -8,13 +8,8 @@ openai.api_key = API_KEY
 
 
 def request(prompt: str) -> str:
-    response = openai.Completion.create(
-        model='text-davinci-003',
-        prompt=prompt,
-        temperature=0.7,
-        max_tokens=128,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0,
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": prompt}]
     )
-    return response.choices[0].text.removeprefix('\n\n')
+    return response.choices[0].message["content"].removeprefix('\n\n')
